@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 1em;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 0.5em;
+            color: #555;
+        }
+        p {
+            margin-top: 1em;
+            color: #333;
+            font-weight: bold;
+        }
+        button {
+            padding: 0.5em 1em;
+            font-size: 1em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Results</h1>
+        <ul>
+            {% for emotion, result in results.items() %}
+            <li>{{ emotion }}: {{ result }}%</li>
+            {% endfor %}
+        </ul>
+        <p>Overall Success: {{ overall }}%</p>
+        <form action="{{ url_for('reset') }}" method="get">
+            <button type="submit">Play Again</button>
+        </form>
+    </div>
+</body>
+</html>
