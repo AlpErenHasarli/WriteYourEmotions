@@ -6,14 +6,14 @@ import pickle
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'secret_key'
 
-# Define paths
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TOKENIZER_PATH = os.path.join(BASE_DIR, 'data', 'tokenizer.pkl')
 MODEL_PATH = os.path.join(BASE_DIR, 'model', 'turkish_emotion_model.keras')
 
-# Load tokenizer and model
+
 with open(TOKENIZER_PATH, 'rb') as handle:
     tokenizer = pickle.load(handle)
 model = load_model(MODEL_PATH)
@@ -67,16 +67,12 @@ def results():
                 success_rate = 0
             success_rates.append(success_rate)
 
-            # Print the prediction details in the terminal for confirmation
-            print(f"Sentence: {sentence}")
-            print(f"Predicted Emotion: {emotions[predicted_emotion_index]} (Confidence: {confidence_score})")
-            print(f"Target Emotion: {emotion} (Success Rate: {success_rate * 100}%)\n")
 
         best_score = max(success_rates)
-        results[emotion] = int(best_score * 100)  # Convert to percentage
+        results[emotion] = int(best_score * 100)
         total_success += best_score
 
-    overall_success = int((total_success / len(emotions)) * 100)  # Calculate the overall success rate
+    overall_success = int((total_success / len(emotions)) * 100)
     return render_template('results.html', results=results, overall=overall_success)
 
 @app.route('/reset')
